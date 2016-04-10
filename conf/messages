@@ -1,0 +1,2 @@
+exception.outofrange=input "{0}" is out of the support range.
+exception.invalidnumber=input "{0}" is not a number.

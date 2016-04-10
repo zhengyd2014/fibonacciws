@@ -1,0 +1,40 @@
+@main("Welcome to Fibonacci Web Service") {
+
+<div class="container">
+    <h2>Help text</h2>
+    <p>Use the .help-block class to add a block level help text in forms:</p>
+    <form role="form" id="fibForm">
+        <div class="form-group">
+            <label>Index:</label>
+            <input type="number" class="form-control" id="index" placeholder="100" onkeyup="computeUrl();">
+            <span class="help-block">input the fibonacci index</span>
+        </div>
+        <div class="form-group">
+            <label>Size:</label>
+            <input type="number" class="form-control" id="size" placeholder="10" onkeyup="computeUrl();" disabled>
+            <span class="help-block">this is only for type range, specifying the size of numbers to return</span>
+        </div>
+        <div class="form-group" onclick="computeUrl();">
+            <label>Result Type:</label>
+            <label class="radio-inline"><input type="radio" name="fibtype" value="number">number</label>
+            <label class="radio-inline"><input type="radio" name="fibtype" value="list" checked>list</label>
+            <label class="radio-inline"><input type="radio" name="fibtype" value="range">range</label>
+        </div>
+        <div class="form-group">
+            <label>url:</label>
+            <input type="text" class="form-control" id="url" placeholder="/fibonacci/list/100" disabled>
+        </div>
+        <div class="form-group">
+            <a href="#" class="btn btn-default" onclick="getFibNumbers();">Get Fibonacci Numbers</a>
+        </div>
+        <div class="form-group">
+            <label>Result:</label>
+            <textarea class="form-control" rows="10" id="result"></textarea>
+        </div>
+    </form>
+</div>
+
+
+}
+
+

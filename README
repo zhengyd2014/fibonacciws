@@ -1,0 +1,104 @@
+Fibonacci Web Service
+------------------------
+this is a web service written
+
+
+Prerequisite
+============
+- requires Java 1.8. To check that you have the latest JDK, please run:
+  java -version
+  to check java version.
+
+How to Run
+============
+
+- change directory to fibonacciWS
+
+- compile with below command, it will take a while, as the process will download dependencies.
+  on linux / mac, enter "./activator compile"
+  on windows, enter ".\activator.bat compile"
+
+- run test
+  on linux / mac, enter "./activator test"
+  on windows, enter ".\activator.bat test"
+
+- run application
+  on linux / mac, enter "./activator run"
+  on windows, enter ".\activator.bat run"
+
+- verify
+  visit "http://localhost:9000/fibonacci/number/10" in browser to get "55" back as response
+
+- UI (for usability)
+  for easy use, provide a UI page for user to see how the 3 API be used.
+  visit "http://localhost:9000"
+
+
+Design Description
+----------------------
+
+Controllers
+===========
+
+- FibonacciController.java:
+  implement 3 RESTful APIs for fibonacci web service
+
+    1. GET /fibonacci/number/{i}
+       get the i-th Fibonacci number
+
+    2. GET /fibonacci/list/{i}
+       get a list Fibonacci numbers, from the 0-th to i-th.
+       result format as: "[0,1,1,2,3 ...]"
+
+    3. GET /fibonacci/range?start={i}&size={s}
+       get specify range of Fibonacci numbers, from the i-th to {i+s}-th.
+       result format as:
+       "[{"index":5,"value":5},{"index":6,"value":8},{"index":7,"value":13}]"
+
+Services
+===========
+
+- Fibonacci.java:
+  interface to define fibonacci service. allow different implementaion for
+  scalability consideration
+
+- FibonacciMapImpl.java
+  use HashMap as cache to implement Fibonacci interface to boost performance.
+  also provide an option to decide if pre-compute the sequence and fill the cache.
+  seen from log, every request took only about 10ms.
+
+- FibonacciPair.java
+  for supporting return a range of Fibonacci numbers.
+
+
+Filters
+=======
+
+- utils.LoggingFilter.java
+  logging time spent of every request, could be used for:
+    * identify time-consuming requests
+    * statistics for APIs called
+    * audit for error requests and find where they are from
+
+   log format as follow:
+   [info] - application - GET /fibonacci/list/10 from 0:0:0:0:0:0:0:1 start at 2016-04-09 10:13:35.275 took 11ms and returned 200
+   [info] - application - GET /fibonacci/list/1000 from 0:0:0:0:0:0:0:1 start at 2016-04-09 10:13:58.362 took 10ms and returned 200
+   [info] - application - GET /fibonacci/range?start=10000&size=3 from 0:0:0:0:0:0:0:1 start at 2016-04-09 10:28:25.598 took 13ms and returned 200
+
+
+Exceptions and i18n Messages
+========
+
+- messages / messages.cn
+  if user input is not a number or out of support range, the returned error message  i18n.
+
+
+UI
+========
+
+- views.index.scala.html
+- public/javascripts/fibonacci.js
+  provide a form to construct fibonacci web service url based on input values. which help user to
+  visualize what the APIs look like.
+
+

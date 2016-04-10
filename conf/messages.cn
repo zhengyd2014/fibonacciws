@@ -1,0 +1,2 @@
+exception.outofrange=输入 "{0}" 超出所支持的范围.
+exception.invalidnumber=输入 "{0}" 不是数字.
