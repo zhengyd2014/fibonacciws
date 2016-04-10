@@ -27,7 +27,7 @@ public class FibonacciFunctionTest {
 
     @BeforeClass
     public static void setup() {
-        fib = new FibonacciMapImpl(new BigInteger("10000"));
+        fib = new FibonacciMapImpl(new BigInteger("10000"), true);
 
     }
 
@@ -38,23 +38,35 @@ public class FibonacciFunctionTest {
 
     @Test
     public void simpleCheck() throws Exception {
+        logger.info("start simpleCheck testing");
+        logger.info("positive test: to check FibonacciMapImpl can get specified fibonacci number right.");
         for (int i=0; i<expected.length; i++) {
             BigInteger result = fib.get(new BigInteger(expected[i][0]));
             assertEquals(expected[i][1], result.toString());
         }
+        logger.info("simpleCheck test passed");
     }
 
     @Test
     public void inputValidate() throws Exception {
+        logger.info("start inputValidate testing");
+        logger.info("negative test: to verify exception when input is a non-number");
         String input = "dfa";
-        new BigInteger(input);
+        try {
+            new BigInteger(input);
+            fail("set index to string, should not reach here.");
+        } catch (NumberFormatException ex) {
+            logger.info(ex.getMessage());
+            assertTrue(ex.getMessage().contains(input));
+        }
+
+        logger.info("inputValidate test passed");
     }
 
     @Test
-    /**
-     *  test out of range
-     */
     public void boundaryTest() {
+        logger.info("start boundaryTest testing");
+        logger.info("negative tet: to verify exception when input out of support range");
         try {
             fib.get(BigInteger.valueOf(-1));
             fail("set index to -1, should not reach here.");
@@ -70,11 +82,14 @@ public class FibonacciFunctionTest {
             logger.info(ex.getMessage());
             assertTrue(ex.getMessage().contains("10000000"));
         }
+
+        logger.info("passed boundaryTest");
     }
 
     @Test
-    public void checkSequence() throws Exception {
-        logger.info("in checkSequence test.");
+    public void checkListFunction() throws Exception {
+        logger.info("start checkListFunction testing");
+        logger.info("positive test: to verify FibonacciMapImpl can get a list of Fibonacci numbers right");
         int index = 110;
         List<BigInteger> result = fib.getSequenceTo(BigInteger.valueOf(index));
         assertEquals(result.size(), index);
@@ -82,8 +97,7 @@ public class FibonacciFunctionTest {
             assertEquals(result.get(Integer.parseInt(expected[i][0])), new BigInteger(expected[i][1]));
         }
         logger.info(Helper.listToString(result));
+        logger.info("passed checkListFunction");
     }
-
-
 
 }

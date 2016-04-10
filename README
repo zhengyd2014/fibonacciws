@@ -1,7 +1,24 @@
 Fibonacci Web Service
 ------------------------
-this is a web service written
+this is a project written with play framework 2.4 to demonstrate a simple
+fibonacci web service. it lightly touches the following key points of designing
+a web service project:
 
+    - scalability  (service interface + impl design)
+    - input boundary check / error handling / i18n error messages
+    - performance
+    - usability (providing several APIs for all kinds of requirement)
+    - UI (for easy usage too)
+    - audit / statistic
+    - test
+      * function test
+      * performance test
+      * integration test
+
+possible enhancement in the future:
+    - pagination
+    - prevent DOS attack (leverage the implemented audit logging function above)
+    - etc.
 
 Prerequisite
 ============

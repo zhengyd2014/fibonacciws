@@ -25,7 +25,7 @@ public class FibonacciMapImpl implements Fibonacci{
     private BigInteger maxIndex;
 
     public FibonacciMapImpl(BigInteger maxIndex) {
-        this(maxIndex, true);
+        this(maxIndex, false);
     }
 
     /**
@@ -38,6 +38,7 @@ public class FibonacciMapImpl implements Fibonacci{
      * @param lazyInit  -- specify if pre-compute Fibonacci sequence and fill the cache
      */
     public FibonacciMapImpl(BigInteger maxIndex, boolean lazyInit) {
+        logger.info("initialize FibonacciMapImpl: maxIndex=" + maxIndex + ", lazyInit=" + lazyInit);
         if (maxIndex.compareTo(ZERO) > 0) {
             this.maxIndex = maxIndex;
         } else {
@@ -46,11 +47,13 @@ public class FibonacciMapImpl implements Fibonacci{
         }
 
         // populate cache to boost first time access performance.
+        // to avoid StackOverflowError
         if (!lazyInit) {
             BigInteger step = new BigInteger("1024");
             for (BigInteger i = step; i.compareTo(maxIndex) < 0; i = i.add(step)) {
                 try {
-                    get(step);
+                    logger.debug("initialization, pre-compute: " + i);
+                    get(i);
                 } catch (FibonacciOutOfRangeException ex) {
                     logger.error("error in initialization");
                 }

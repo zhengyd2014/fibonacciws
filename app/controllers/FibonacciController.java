@@ -17,7 +17,7 @@ import java.util.List;
 
 public class FibonacciController extends Controller {
 
-    private static Fibonacci fib = new FibonacciMapImpl(new BigInteger("1000000"));
+    private static Fibonacci fib = new FibonacciMapImpl(new BigInteger("100000"));
 
     public Result html() {
         return ok(index.render());
