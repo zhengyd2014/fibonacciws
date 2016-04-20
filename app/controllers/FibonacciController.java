@@ -1,25 +1,37 @@
 package controllers;
 
 import Exceptions.FibonacciOutOfRangeException;
+
+import play.Logger;
 import services.FibonacciPair;
 import play.libs.Json;
 import play.i18n.Messages;
 import play.mvc.*;
 
 import services.Fibonacci;
-import services.FibonacciMapImpl;
 import utils.Helper;
 import views.html.*;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+@Singleton
 public class FibonacciController extends Controller {
 
-    private static Fibonacci fib = new FibonacciMapImpl(new BigInteger("100000"));
+    private static final Logger.ALogger logger = Logger.of(FibonacciController.class);
+
+    private Fibonacci fib;
+
+    @Inject
+    public FibonacciController(Fibonacci fib) {
+        this.fib = fib;
+    }
 
     public Result html() {
+        logger.info("FibonacciController: " + this.toString());
         return ok(index.render());
     }
 

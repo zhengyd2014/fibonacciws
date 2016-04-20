@@ -1,6 +1,7 @@
 package services;
 
 import Exceptions.FibonacciOutOfRangeException;
+import com.google.inject.Singleton;
 import play.Logger;
 
 import java.math.BigInteger;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by zhengf1 on 4/7/16.
  */
+@Singleton
 public class FibonacciMapImpl implements Fibonacci{
 
     private static final Logger.ALogger logger = Logger.of(FibonacciMapImpl.class);
@@ -23,6 +25,10 @@ public class FibonacciMapImpl implements Fibonacci{
     // set a max number the Fibonacci instance to hold, to avoid user abuse of it,
     // and cause out of memory issue.
     private BigInteger maxIndex;
+
+    public FibonacciMapImpl() {
+        this(BigInteger.valueOf(100000));
+    }
 
     public FibonacciMapImpl(BigInteger maxIndex) {
         this(maxIndex, false);
